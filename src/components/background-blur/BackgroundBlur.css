@@ -1,0 +1,17 @@
+/* ===========================================
+    BACKGROUND BLUR
+=========================================== */
+
+.background-blur {
+    background-color: hsl(0, 0%, 0%, .25);
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(4px);
+}
+
+.background-blur.hide {
+    opacity: 0;
+}
