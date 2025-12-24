@@ -8,6 +8,7 @@
     left: 0;
     top: 0;
     height: 100%;
+    z-index: 200;
     width: 100%;
     backdrop-filter: blur(4px);
 }
@@ -15,3 +16,4 @@
 .background-blur.hide {
     opacity: 0;
 }
+

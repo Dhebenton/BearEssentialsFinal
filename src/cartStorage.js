@@ -11,8 +11,16 @@ function safeParse(value) {
 }
 
 export function getCart() {
-  return safeParse(localStorage.getItem(KEY)) || []
+  const raw = safeParse(localStorage.getItem(KEY)) || []
+
+  return raw
+    .map(item => ({
+      ...item,
+      qty: Number(item.qty)
+    }))
+    .filter(item => Number.isInteger(item.qty) && item.qty >= 1)
 }
+
 
 export function setCart(cart) {
   localStorage.setItem(KEY, JSON.stringify(cart))
@@ -34,17 +42,27 @@ export function subscribe(fn) {
 }
 
 export function addItem(item) {
+  if (!item || !item.id || !item.priceId) return
+
   const cart = getCart()
   const existing = cart.find(i => i.id === item.id)
 
+  const qty = Number.isFinite(item.qty) && item.qty > 0 ? item.qty : 1
+
   if (existing) {
-    existing.qty += 1
+    existing.qty += qty
   } else {
-    cart.push({ ...item, qty: 1 })
+    cart.push({
+      id: item.id,
+      priceId: item.priceId,
+      price: item.price,
+      qty
+    })
   }
 
   setCart(cart)
 }
+
 
 export function increment(id) {
   const cart = getCart()

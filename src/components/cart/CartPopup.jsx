@@ -36,6 +36,11 @@ export default function CartPopup({ cartOpen, OpenCart, items }) {
   const discountAmount = subtotal * discountRate
   const discountedSubtotal = subtotal - discountAmount
 
+  const checkoutItems = items.map(item => ({
+  qty: item.qty
+}))
+
+
   return (
     <div className={`cart-pop-up-wrap tra ${cartOpen ? '' : 'hide'}`}>
       <TopBlock
@@ -63,8 +68,11 @@ export default function CartPopup({ cartOpen, OpenCart, items }) {
           discountRate={discountRate}
           discountAmount={discountAmount}
           discountedSubtotal={discountedSubtotal}
+          checkoutItems={checkoutItems}
+          isEmpty={isEmpty}
         />
       </div>
     </div>
   )
 }
+
